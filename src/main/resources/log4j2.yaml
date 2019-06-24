@@ -1,0 +1,31 @@
+Configuration:
+  packages: "com.logivations"
+  name: log4j2_Config
+  properties:
+    property:
+      name: log-path
+      value: logs
+  #----------------------------------------------------
+  appenders:
+    Console:
+      name: Console_Appender
+      PatternLayout:
+        Pattern: "%msg%xEx{short}"
+    File:
+      name: fileErrors
+      fileName: ${log-path}/errors.log
+      PatternLayout:
+        Pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %class{1}:%L - %msg%xEx{short}%n"
+  Loggers:
+    Root:
+      level: all
+      AppenderRef:
+      - ref: fileErrors
+        level: error
+    Logger:
+    - name: com.logivations
+      level: all
+      AppenderRef:
+      - ref: Console_Appender
+        level: info
+
